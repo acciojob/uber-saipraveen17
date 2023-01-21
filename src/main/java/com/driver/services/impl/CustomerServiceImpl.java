@@ -12,6 +12,7 @@ import com.driver.repository.DriverRepository;
 import com.driver.repository.TripBookingRepository;
 import com.driver.model.TripStatus;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -44,6 +45,7 @@ public class CustomerServiceImpl implements CustomerService {
 		//Book the driver with lowest driverId who is free (cab available variable is Boolean.TRUE). If no driver is available, throw "No cab available!" exception
 		//Avoid using SQL query
 		List<Driver> driverList = driverRepository2.findAll();
+		Collections.sort(driverList, (a,b)->a.getDriverId()-b.getDriverId());
 		Driver driverAvailable = null;
 		for(Driver driver : driverList) {
 			if(driver.getCab().getAvailable()) {
